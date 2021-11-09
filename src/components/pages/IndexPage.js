@@ -101,10 +101,16 @@ function Scanner() {
       <Grid container direction="column" alignItems="center" justify="center">
         <Grid item style={{ width: "100%", position: "relative" }}>
           <IconButton
-            style={{ position: "absolute", right: 8, top: 8 }}
+            style={{
+              position: "absolute",
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              right: 8,
+              top: 8,
+              zIndex: 100,
+            }}
             onClick={handleToggleCamera}
           >
-            <CameraswitchIcon />
+            <CameraswitchIcon style={{ fontSize: 12, color: "#fff" }} />
           </IconButton>
 
           <QrReader
