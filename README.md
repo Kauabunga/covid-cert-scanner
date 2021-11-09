@@ -1,6 +1,6 @@
 # COVID Scanner Web
 
-[https://covid-cert-scanner.vercel.app/](https://covid-cert-scanner.vercel.app/)
+[https://scanner.nz/](https://scanner.nz/)
 
 ## Getting Started
 
