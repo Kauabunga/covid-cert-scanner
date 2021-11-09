@@ -1,6 +1,6 @@
 # COVID Scanner Web
 
-[https://scanner.nz/](https://scanner.nz/)
+See it running @ [scanner.nz](https://scanner.nz/)
 
 ## Getting Started
 

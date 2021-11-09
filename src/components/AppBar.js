@@ -34,6 +34,7 @@ export default function MenuAppBar({ children }) {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Scanner
           </Typography>

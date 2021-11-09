@@ -1,8 +1,8 @@
 import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
 
 const didState = atom({
-  key: "didState", // unique ID (with respect to other atoms/selectors)
-  default: getExampleJwk(),
+  key: "didState",
+  default: getNzJwk(),
 });
 
 export const verificationSelector = selector({
