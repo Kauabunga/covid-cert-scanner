@@ -70,6 +70,7 @@ function IndexComponent() {
           style={{
             margin: 0,
             height: 192,
+            width: "100vw",
             overflow: "auto",
             padding: 24,
           }}
