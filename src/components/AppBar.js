@@ -31,7 +31,7 @@ export default function MenuAppBar({ children }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ paddingTop: 48 }}>
         <Toolbar>
           <IconButton
             size="large"

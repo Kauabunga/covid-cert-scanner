@@ -69,7 +69,7 @@ function IndexComponent() {
         <pre
           style={{
             margin: 0,
-            height: 192,
+            height: 256,
             width: "100vw",
             overflow: "auto",
             padding: 24,
