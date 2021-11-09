@@ -2,10 +2,11 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MainLayout from "../MainLayout";
+import Loader from "../Loader";
 
 export default function Examples() {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<Loader />}>
       <ExamplesComponent />
     </React.Suspense>
   );

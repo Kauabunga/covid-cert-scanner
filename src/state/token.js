@@ -1,7 +1,7 @@
 import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { verify } from "../services/verify";
-import { jwkSelector } from "./jwk";
+import { jwkSelector, verificationControllerSelector } from "./jwk";
 
 const codeState = atom({
   key: "codeState",
@@ -12,9 +12,10 @@ const tokenSelector = selector({
   key: "tokenSelector",
   get: async ({ get }) => {
     const code = get(codeState);
+    const iss = get(verificationControllerSelector);
     const jwk = get(jwkSelector);
 
-    return verify(code, jwk).catch((err) => {
+    return verify(code, iss, jwk).catch((err) => {
       console.error("Error verifying token", err);
       return null;
     });

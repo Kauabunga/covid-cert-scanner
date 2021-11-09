@@ -5,12 +5,9 @@ import * as base32 from "hi-base32";
 const NZCP_PREFIX = "NZCP:";
 const VERSION_PREFIX = "1";
 
-export async function verify(code, jwk) {
-  if (!jwk) {
-    return { error: "No JWK" };
-  }
-  if (!code) {
-    return { error: "No Code" };
+export async function verify(code, iss, jwk) {
+  if (!jwk || !code) {
+    return null;
   }
 
   const [nzcpPrefix, versionPrefix, encodedToken] = String(code).split("/");
@@ -25,8 +22,24 @@ export async function verify(code, jwk) {
     const COSEMessage = Buffer.from(base32.decode.asBytes(encodedToken));
     const verifiedBuffer = await cose.sign.verify(COSEMessage, { key: jwk });
     const tokenMap = await decode(verifiedBuffer);
+    const decoded = transformDecodedMap(tokenMap);
 
-    return transformDecodedMap(tokenMap);
+    const now = Date.now();
+
+    if (decoded.iss !== iss) {
+      return { error: "Invalid Issuer", decoded };
+    }
+
+    if (decoded.nbf * 1000 > now) {
+      return { error: "NBF Invalid", decoded };
+    }
+
+    if (decoded.exp * 1000 < now) {
+      return { error: "Expired", decoded };
+    }
+
+    console.log("Decoded", decoded);
+    return decoded;
   } catch (err) {
     console.error("Error verifying token", err);
     return { error: err.message, code };

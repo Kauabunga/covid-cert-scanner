@@ -1,8 +1,11 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 import { useSetCode, useToken } from "../../state/token";
+import Loader from "../Loader";
+import { useJwkId } from "../../state/jwk";
 
 const QrReader = dynamic(() => import("react-qr-reader"), {
   loading: () => null,
@@ -11,7 +14,7 @@ const QrReader = dynamic(() => import("react-qr-reader"), {
 
 export default function Index() {
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<Loader />}>
       <IndexComponent />
     </React.Suspense>
   );
@@ -66,19 +69,63 @@ function IndexComponent() {
           />
         </Grid>
 
-        <pre
-          style={{
-            margin: 0,
-            height: 256,
-            width: "100vw",
-            overflow: "auto",
-            padding: 24,
-          }}
-        >
-          {token ? JSON.stringify(token, null, 2) : "null"}
-        </pre>
+        <Grid item>
+          {token && token.error && <TokenError token={token} />}
+          {token && !token.error && <TokenSuccess token={token} />}
+        </Grid>
       </Grid>
     </>
+  );
+}
+
+function TokenError({ token }) {
+  return (
+    <Grid container direction="column" style={{ marginTop: 24 }}>
+      <Typography variant="h5" color="error">
+        Error: {token.error}
+      </Typography>
+    </Grid>
+  );
+}
+
+function TokenSuccess({ token }) {
+  const currentJwkId = useJwkId();
+  const credentialSubject = token?.vc?.credentialSubject;
+
+  return (
+    <div style={{ padding: 24 }}>
+      <Grid container>
+        <Typography color="textSecondary" variant="h5">
+          Given Name:
+        </Typography>
+        <Grid item style={{ flexGrow: 1 }} />
+        <Typography variant="h5">
+          <strong>{credentialSubject.givenName}</strong>
+        </Typography>
+      </Grid>
+
+      <Grid container>
+        <Typography color="textSecondary" variant="h5">
+          Family Name:
+        </Typography>
+        <Grid item style={{ flexGrow: 1 }} />
+        <Typography variant="h5">
+          <strong>{credentialSubject.familyName}</strong>
+        </Typography>
+      </Grid>
+
+      <Grid container>
+        <Typography color="textSecondary" variant="h5">
+          DOB:
+        </Typography>
+        <Grid item style={{ flexGrow: 1 }} />
+        <Typography variant="h5">
+          <strong>{credentialSubject.dob}</strong>
+        </Typography>
+      </Grid>
+
+      
+    </div>
   );
 }
 
