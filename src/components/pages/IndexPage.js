@@ -66,7 +66,14 @@ function IndexComponent() {
           />
         </Grid>
 
-        <pre style={{ margin: 0, height: 192, overflow: "scroll" }}>
+        <pre
+          style={{
+            margin: 0,
+            height: 192,
+            overflow: "auto",
+            padding: 24,
+          }}
+        >
           {token ? JSON.stringify(token, null, 2) : "null"}
         </pre>
       </Grid>

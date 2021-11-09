@@ -6,23 +6,31 @@ const NZCP_PREFIX = "NZCP:";
 const VERSION_PREFIX = "1";
 
 export async function verify(code, jwk) {
-  if (!code || !jwk) {
-    return null;
+  if (!jwk) {
+    return { error: "No JWK" };
+  }
+  if (!code) {
+    return { error: "No Code" };
   }
 
-  const [nzcpPrefix, versionPrefix, encodedToken] = code.split("/");
+  const [nzcpPrefix, versionPrefix, encodedToken] = String(code).split("/");
 
   const isValidNzcpPrefix = nzcpPrefix === NZCP_PREFIX;
   const isValidVersionPrefix = versionPrefix === VERSION_PREFIX;
   if (!isValidNzcpPrefix || !isValidVersionPrefix) {
-    throw new Error("Invalid token");
+    return { error: "Invalid token prefix", code };
   }
 
-  const COSEMessage = Buffer.from(base32.decode.asBytes(encodedToken));
-  const verifiedBuffer = await cose.sign.verify(COSEMessage, { key: jwk });
-  const tokenMap = await decode(verifiedBuffer);
+  try {
+    const COSEMessage = Buffer.from(base32.decode.asBytes(encodedToken));
+    const verifiedBuffer = await cose.sign.verify(COSEMessage, { key: jwk });
+    const tokenMap = await decode(verifiedBuffer);
 
-  return transformDecodedMap(tokenMap);
+    return transformDecodedMap(tokenMap);
+  } catch (err) {
+    console.error("Error verifying token", err);
+    return { error: err.message, code };
+  }
 }
 
 async function decode(buffer) {
