@@ -28,12 +28,13 @@ export default function AppBarDrawer({ open, onClick, children }) {
       <Drawer open={open} onClose={toggleDrawer(false)}>
         <Box
           sx={{ width: 250 }}
+          style={{ paddingTop: 48 }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            <Link href="/">
+            <Link href="/" passHref>
               <ListItem button>
                 <ListItemIcon>
                   <HomeIcon />
@@ -44,7 +45,7 @@ export default function AppBarDrawer({ open, onClick, children }) {
           </List>
           <Divider />
           <List>
-            <Link href="/examples">
+            <Link href="/examples" passHref>
               <ListItem button>
                 <ListItemIcon>
                   <FlightTakeoffIcon />
@@ -52,7 +53,7 @@ export default function AppBarDrawer({ open, onClick, children }) {
                 <ListItemText primary="Examples" />
               </ListItem>
             </Link>
-            <Link href="/config">
+            <Link href="/config" passHref>
               <ListItem button>
                 <ListItemIcon>
                   <SettingsIcon />
