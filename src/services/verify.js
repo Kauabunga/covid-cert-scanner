@@ -10,7 +10,9 @@ export async function verify(code, iss, jwk) {
     return null;
   }
 
-  const [nzcpPrefix, versionPrefix, encodedToken] = String(code).split("/");
+  const [nzcpPrefix, versionPrefix, encodedToken] = String(code)
+    .trim()
+    .split("/");
 
   const isValidNzcpPrefix = nzcpPrefix === NZCP_PREFIX;
   const isValidVersionPrefix = versionPrefix === VERSION_PREFIX;
