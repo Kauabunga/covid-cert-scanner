@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -18,6 +18,7 @@ import {
 import ScannerResultModal from "../ScannerResultModal";
 import ScannerResultSuccess from "../ScannerResultSuccess";
 import ScannerResultError from "../ScannerResultError";
+import { useHashParam, clearHashParams } from "../../hooks/useHashParam";
 
 const QrReader = dynamic(() => import("react-qr-reader"), {
   loading: () => null,
@@ -50,9 +51,10 @@ function ScannerIntro() {
   return (
     <MainLayout>
       <Typography variant="h4">COVID NZ Scanner</Typography>
-      <Typography>
+      <Typography variant="h6">
         This app works entirely on your device and does not upload your data
-        anywhere.
+        anywhere. No tracking has been added to this site. For the offical NZ
+        COVID Scanner please visit https://nzcp.covid19.health.nz.
       </Typography>
 
       <Button onClick={handleStartScanning}>Start Scanning</Button>
@@ -95,6 +97,15 @@ function Scanner() {
         console.log("Permissions error", error);
       });
   };
+
+  useEffect(() => {
+    const hashCertParam = useHashParam("cert");
+    if (hashCertParam) {
+      setCode(hashCertParam);
+      setOpen(true);
+      clearHashParams();
+    }
+  }, []);
 
   return (
     <>

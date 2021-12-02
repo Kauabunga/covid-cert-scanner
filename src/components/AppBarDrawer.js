@@ -8,6 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
+import EditIcon from "@mui/icons-material/Edit";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import SettingsIcon from "@mui/icons-material/Settings";
 
@@ -42,8 +43,18 @@ export default function AppBarDrawer({ open, onClick, children }) {
                 <ListItemText primary="Home" />
               </ListItem>
             </Link>
+
+            <Link href="/manual" passHref>
+              <ListItem button>
+                <ListItemIcon>
+                  <EditIcon />
+                </ListItemIcon>
+                <ListItemText primary="Manual Input" />
+              </ListItem>
+            </Link>
           </List>
           <Divider />
+
           <List>
             <Link href="/examples" passHref>
               <ListItem button>

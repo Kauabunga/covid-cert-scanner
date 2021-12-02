@@ -12,12 +12,12 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 800,
   maxWidth: "100%",
-  height: 400,
+  height: 800,
   maxHeight: "100vh",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 export default function ScannerResultModal({ open, onClose, children }) {

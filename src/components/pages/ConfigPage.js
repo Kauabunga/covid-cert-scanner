@@ -32,8 +32,6 @@ function ConfigComponent() {
 
   return (
     <MainLayout>
-      <Typography></Typography>
-
       <FormControl component="fieldset">
         <FormLabel component="legend">Current Jwk</FormLabel>
         <RadioGroup

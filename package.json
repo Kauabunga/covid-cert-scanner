@@ -25,6 +25,7 @@
     "next-pwa": "^5.4.0",
     "node-inspect-extracted": "^1.0.8",
     "prop-types": "latest",
+    "qs": "^6.10.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-qr-reader": "^2.2.1",
